@@ -1,0 +1,23 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1 style="color:darkblue;font-size:60px">SUDOKU</h1>
+    <div>
+        <button style="border-radius:5px;border:solid black 2px;margin:10px 10px 10px 20px;font-weight:bold;background-color:lightblue;padding:10px 20px;width:100px" onclick="generateGrid(1)">Easy</button>
+        <button style="border-radius:5px;border:solid black 2px;margin:10px;font-weight:bold;background-color:lightblue;padding:10px 20px;width:100px" onclick="generateGrid(2)">Medium</button>
+        <button style="border-radius:5px;border:solid black 2px;margin:10px;font-weight:bold;background-color:lightblue;padding:10px 20px;width:100px" onclick="generateGrid(3)">Hard</button>
+    </div>
+    <div id="box" style="display:flex;flex-direction:column;">
+        <div id="sudoku-grid"></div>
+        <button style="padding:15px 25px;border-radius:30px;border:solid 2px black;margin:10px;font-weight:bold;background-color:green;color:white;" onclick="solvedGrid()">SOLUTION</button>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    grid-template-rows: repeat(9, 40px);
+    margin: 30px auto;
+    gap: 2px;
+    cursor: pointer;
+    margin-bottom: 35px;
+}
+
+#sudoku-grid input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.2em;
+    border: solid 2px black;
+    cursor: pointer;
+    outline: none;
+}
+#sudoku-grid input:hover {
+    background-color: #efefef;
+    transition: 0.2s;
+}
+#box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button:hover {
+    scale: 1.05;
+    transition: 0.3s;
+}
+button:active {
+    scale: 0.98;
+    transition: 0.2s;
+}
