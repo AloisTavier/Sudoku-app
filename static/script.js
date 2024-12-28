@@ -89,7 +89,7 @@ function checkGrid(cell) {
     .then(response => response.json())
     .then(data => {
         console.log(data.validation);
-        if (data.validation[1]) {
+        if (!data.validation[0]) {
             let text = cell.value + " is not a valid move! " + "Check the " + data.validation[1] + " ;)";
             alert(text);
             cell.value = '';

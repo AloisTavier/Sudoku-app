@@ -45,17 +45,14 @@ def ChoiceInSubGridAndLines(grid, row, column):
         for j in range(3):
             if subgrid[i][j] in vector:
                 vector.remove(subgrid[i][j])
-                # print("subgrid", vector)
     #check the row
     for c in range(9):
         if grid[row][c] in vector:
             vector.remove(grid[row][c])
-            # print("row", vector)
     for r in range(9):
         if grid[r][column] in vector:
             vector.remove(grid[r][column])
-            # print("column", vector)
-    # print(vector)
+            
     if len(vector) == 0 or len(vector) == 2:
         vector = [0]
     return vector
@@ -94,15 +91,11 @@ def check_cell(grid, row, column, number):
     for c in range(9):
         if grid[row][c] == number and c != column and grid[row][c] != 0:
             print("problem in row", grid[row])
-            print("number", number)
-            print("grid num", grid[row][c])
             return "row", False
     #check the column
     for r in range(9):
         if grid[r][column] == number and r != row and grid[r][column] != 0:
             print("problem in column", grid[:][column])
-            print("number", number)
-            print("grid num", grid[r][column])
             return "column", False
     #check the subgrid
     subgrid = grid[(row//3)*3:(row//3)*3+3,(column//3)*3:(column//3)*3+3]
@@ -110,8 +103,6 @@ def check_cell(grid, row, column, number):
         for j in range(3):
             if subgrid[i][j] == number and (i != row%3 or j != column%3) and subgrid[i][j] != 0:
                 print("problem in subgrid", subgrid)
-                print("number", number)
-                print("grid num", subgrid[i][j])
                 return "Subgrid", False
     return "ok", True
 
@@ -120,7 +111,6 @@ def check_grid(grid):
         for j in range(9):
             if not check_cell(grid, i, j, grid[i][j])[1]:
                 return check_cell(grid, i, j, grid[i][j])[0], False
-    print("okok tout bon")
     return "ok", True
     
     

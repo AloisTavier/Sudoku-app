@@ -27,7 +27,7 @@ def validate():
 @app.route('/validmove', methods=['POST'])
 def nonValid():
     grid = np.array(request.json.get('grid'))
-    validated = not sg.check_grid(grid)[1]
+    validated = sg.check_grid(grid)[1]
     problem = sg.check_grid(grid)[0]
     validation = [validated, problem]
     return jsonify(validation=validation)
