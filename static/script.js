@@ -2,8 +2,10 @@
 let sol = Array.from({ length: 9 }, () => Array(9).fill(0));
 let gridunsolved = Array.from({ length: 9 }, () => Array(9).fill(0));
 let control = 0;
+const BACKEND_URL = 'https://sudoku-backend.onrender.com';
+
 function generateGrid(level) {
-    fetch('/generate', {
+    fetch(`${BACKEND_URL}/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ level: level })
@@ -116,7 +118,7 @@ function checkGrid(cell) {
     });
     gridunsolved = grid;
 
-    fetch('/validate', {
+    fetch(`${BACKEND_URL}/validate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ grid: grid })
@@ -129,7 +131,7 @@ function checkGrid(cell) {
             alert("Congratulations! Sudoku Solved!");
         }
     });
-    fetch('/validmove', {
+    fetch(`${BACKEND_URL}/validmove`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ grid: grid })
