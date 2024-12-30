@@ -21,7 +21,9 @@ def generate():
 @app.route('/validate', methods=['POST'])
 def validate():
     grid = np.array(request.json.get('grid'))
-    valid = sg.check_grid(grid) and not sg.chek0inGrid(grid)
+    valid = sg.check_grid(grid)[1] and not sg.chek0inGrid(grid)[0]
+    print("check grid", sg.check_grid(grid)[1]) 
+    print("check 0", sg.chek0inGrid(grid)[0])
     return jsonify(valid=valid)
 
 @app.route('/validmove', methods=['POST'])

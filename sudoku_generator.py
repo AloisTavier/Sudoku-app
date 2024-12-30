@@ -11,7 +11,7 @@ def grid_sudoku(param=10):
         grid[i*3] = random.sample(vector, len(vector))
     # PrintGrid(grid)
     iter = 0
-    while chek0inGrid(grid):
+    while chek0inGrid(grid)[0]:
         for _ in range(param):
             c = random.choice(range(9))
             r = random.choice(range(9))
@@ -24,6 +24,7 @@ def grid_sudoku(param=10):
         if iter == 10000:
             chek0inGrid(grid)
             break
+    print("iter", iter)
     return grid, iter
 
 def chek0inGrid(grid):
@@ -33,8 +34,9 @@ def chek0inGrid(grid):
             if grid[i][j] == 0:
                 number0 += 1
     if number0 != 0:
-        return True
-    return False
+        # print("number of numbers", 81-number0)
+        return True, number0
+    return False, 0
 
 def ChoiceInSubGridAndLines(grid, row, column):
     #based on a cell, we will check the subgrid, the row and the column
@@ -70,17 +72,20 @@ def unsolved_grid(grid, level):
             r = random.choice(range(9))
             grid[r][c] = 0
     elif level == 2:
-        for _ in range(50):
+        for _ in range(60):
             c = random.choice(range(9))
             r = random.choice(range(9))
             grid[r][c] = 0
     elif level == 3:
-        for _ in range(65):
-            c = random.choice(range(9))
-            r = random.choice(range(9))
-            grid[r][c] = 0
+        while chek0inGrid(grid)[1]<52:
+            for _ in range(15):
+                c = random.choice(range(9))
+                r = random.choice(range(9))
+                grid[r][c] = 0
+        
     elif level == 4:
         return grid
+    print("count numbers", 81-chek0inGrid(grid)[1])
     return grid
             
 PrintGrid(unsolved_grid(grid_sudoku()[0], 3))
@@ -119,13 +124,13 @@ def check_grid(grid):
 def plots():
     iter = []
     time_start = time.time()
-    for i in range(100):
+    for i in range(1000):
         grid, it = grid_sudoku(param=8)
         iter.append(it)
     #remove outliers
     iter = [x for x in iter if x < 1500]
     time_end = time.time()
-    print('time cost', time_end-time_start, 's')
+    print('time cost', np.round(time_end-time_start)/1000, 's')
     print('mean', np.mean(iter))
         
     #plot the mean and the standard deviation
@@ -135,6 +140,7 @@ def plots():
     plt.axhline(np.mean(iter) - np.std(iter), color='g', linestyle='--')
     plt.xlabel('Grids')
     plt.ylabel('Iterations')
-    plt.title('Number of iterations for 100 grids')
+    plt.title('Number of iterations for 1000 grids')
 
     plt.show()
+# plots()

@@ -44,12 +44,59 @@ function displayGrid(grid) {
             if (i===8){cell.style.borderBottom = '3.5px solid black';}
             if (j===8){cell.style.borderRight = '3.5px solid black';}
 
+            cell.onclick = function () {
+                let value = cell.value;
+                if (value === '') {
+                    for (let i = 0; i < 9; i++) {
+                        for (let j = 0; j < 9; j++) {
+                            document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#ffffff';
+                            if (grid[i][j] !== 0) {
+                                document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#d0d0d0';
+                            }
+                            if (i === parseInt(cell.dataset.row) || j === parseInt(cell.dataset.col)) {
+                                document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = 'rgb(222, 222, 240)';
+                            }
+                            if (i >= parseInt(cell.dataset.row) - parseInt(cell.dataset.row) % 3 && i < parseInt(cell.dataset.row) - parseInt(cell.dataset.row) % 3 + 3 && j >= parseInt(cell.dataset.col) - parseInt(cell.dataset.col) % 3 && j < parseInt(cell.dataset.col) - parseInt(cell.dataset.col) % 3 + 3) {
+                                document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = 'rgb(195, 195, 220)';
+                            }
+                        }
+                    }
+                } else {
+                    if (cell.style.backgroundColor == 'rgb(147, 147, 147)') {
+                        for (let i = 0; i < 9; i++) {
+                            for (let j = 0; j < 9; j++) {
+                                if (grid[i][j] !== 0) {
+                                    document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#d0d0d0';
+                                }
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i < 9; i++) {
+                            for (let j = 0; j < 9; j++) {
+                                //set all the ciells with the same value to grey
+                                // document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#ffffff';
+                                if (gridunsolved[i][j] == parseInt(value)) {
+                                    document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).readOnly = 'true';
+                                    document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = 'rgb(147, 147, 147)';
+                                } else {
+                                    document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#ffffff';
+                                    if (grid[i][j] !== parseInt(value) && grid[i][j] !== 0) {
+                                        document.querySelector(`input[data-row="${i}"][data-col="${j}"]`).style.backgroundColor = '#d0d0d0';
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
             cell.oninput = function () {
                 // checks if the input is a number
                 if (!/^[1-9]$/.test(cell.value)) {
                     cell.value = '';
                     return;
                 }
+                console.log("yo yo yo");
                 checkGrid(cell);
             };
 
@@ -76,7 +123,8 @@ function checkGrid(cell) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.valid);
+        // console.log(data.valid);
+        console.log("data valid is " + data.valid);
         if (data.valid) {
             alert("Congratulations! Sudoku Solved!");
         }
